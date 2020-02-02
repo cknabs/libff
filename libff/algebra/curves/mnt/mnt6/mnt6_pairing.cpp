@@ -408,11 +408,6 @@ struct extended_mnt6_G2_projective {
         Z.print();
         T.print();
     }
-
-    static void test_invariant()
-    {
-        assert(T == Z.squared());
-    }
 };
 
 void doubling_step_for_flipped_miller_loop(extended_mnt6_G2_projective &current,

@@ -11,8 +11,8 @@
 
 #include "depends/mcl/include/mcl/bn256.hpp"
 
-#include <libff/algebra/fields/field_utils.hpp>
-#include <libff/algebra/fields/fp.hpp>
+#include <libff/algebra/field_utils/field_utils.hpp>
+#include <libff/algebra/fields/prime_base/fp.hpp>
 
 namespace libff {
 

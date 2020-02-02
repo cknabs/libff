@@ -10,7 +10,7 @@
 #include "depends/mcl/include/mcl/bn256.hpp"
 
 #include <libff/algebra/curves/public_params.hpp>
-#include <libff/algebra/fields/fp.hpp>
+#include <libff/algebra/fields/prime_base/fp.hpp>
 
 namespace libff {
 

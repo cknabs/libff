@@ -6,13 +6,29 @@ if(NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
   set(CMAKE_BUILD_TYPE RelWithDebInfo CACHE STRING "Build type on single-configuration generators" FORCE)
 endif()
 
-set(
-  CURVE
-  "BN128"
-  CACHE
-  STRING
-  "Default curve: one of BLS12_381, ALT_BN128, BN128, EDWARDS, MNT4, MNT6"
+if(${CMAKE_SYSTEM_PROCESSOR} MATCHES "arm")
+  set(ARM ON CACHE BOOL "Whether the current architecture is arm")
+else ()
+  set(ARM OFF CACHE BOOL "Whether the current architecture is arm")
+endif ()
+
+if(APPLE AND ARM)
+  set(
+    CURVE
+    "MCL_BN128"
+    CACHE
+    STRING
+    "Default curve: one of BLS12_381, ALT_BN128, BN128, EDWARDS, MNT4, MNT6"
 )
+else()
+  set(
+    CURVE
+    "MCL_BN128"
+    CACHE
+    STRING
+    "Default curve: one of BLS12_381, ALT_BN128, BN128, EDWARDS, MNT4, MNT6"
+  )
+endif ()
 
 option(
   DEBUG
@@ -74,17 +90,33 @@ option(
   OFF
 )
 
-option(
+if(ARM)
+  option(
+  USE_ASM
+  "Use architecture-specific optimized assembly code"
+  OFF
+  )
+else ()
+  option(
   USE_ASM
   "Use architecture-specific optimized assembly code"
   ON
 )
+endif ()
 
 option(
   IS_LIBFF_PARENT
   "Install submodule dependencies if caller originates from here"
   ON
 )
+
+if(APPLE)
+  # Set OPENSSL_ROOT_DIR automatically
+  execute_process(COMMAND echo brew --prefix openssl OUTPUT_STRIP_TRAILING_WHITESPACE OUTPUT_VARIABLE OPENSSL_ROOT_DIR)
+
+  # Set SODIUM_INCLUDE_DIR automatically
+  execute_process(COMMAND echo brew --prefix libsodium OUTPUT_STRIP_TRAILING_WHITESPACE OUTPUT_VARIABLE SODIUM_INCLUDE_DIR)
+endif ()
 
 if(CMAKE_COMPILER_IS_GNUCXX OR "${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
   # Common compilation flags and warning configuration
@@ -139,6 +171,13 @@ if(${CURVE} STREQUAL "BN128")
   include_directories(depends)
   add_definitions(
     -DBN_SUPPORT_SNARK=1
+  )
+endif()
+
+if(${CURVE} STREQUAL "MCL_BN128")
+  include_directories(depends/mcl/include)
+  add_definitions(
+          -DBN_SUPPORT_SNARK=1
   )
 endif()
 

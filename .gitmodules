@@ -4,6 +4,9 @@
 [submodule "depends/xbyak"]
 	path = depends/xbyak
 	url = https://github.com/herumi/xbyak.git
+[submodule "depends/mcl"]
+	path = depends/mcl
+	url = https://github.com/herumi/mcl.git
 [submodule "gtest"]
 	path = depends/gtest
 	url = https://github.com/google/googletest.git

@@ -87,7 +87,7 @@ cmake ..
 If you are on macOS, change the cmake command to be
 
 ```
-cmake .. -DOPENSSL_ROOT_DIR=$(brew --prefix openssl)
+cmake .. -DOPENSSL_ROOT_DIR=$(brew --prefix openssl) -DSODIUM_INCLUDE_DIR=$(brew --prefix libsodium)
 ```
 
 Other build flags include:

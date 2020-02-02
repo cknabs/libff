@@ -245,11 +245,6 @@ struct extended_edwards_G1_projective {
         Z.print();
         T.print();
     }
-
-    static void test_invariant()
-    {
-        assert(T*Z == X*Y);
-    }
 };
 
 void doubling_step_for_miller_loop(extended_edwards_G1_projective &current,
@@ -462,11 +457,6 @@ struct extended_edwards_G2_projective {
             Y.print();
             Z.print();
             T.print();
-        }
-
-    static void test_invariant()
-        {
-            assert(T*Z == X*Y);
         }
 };
 
