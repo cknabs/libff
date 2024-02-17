@@ -23,7 +23,7 @@ if(APPLE AND ARM)
 else()
   set(
     CURVE
-    "MCL_BN128"
+    "BN128"
     CACHE
     STRING
     "Default curve: one of BLS12_381, ALT_BN128, BN128, EDWARDS, MNT4, MNT6"
