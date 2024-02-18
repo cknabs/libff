@@ -22,6 +22,23 @@ if(${CURVE} STREQUAL "BN128")
   )
 endif()
 
+if(${CURVE} STREQUAL "MCL_BN128")
+  include_directories(depends)
+  include_directories(depends/mcl/include)
+  set(
+          FF_EXTRASRCS
+
+          ${FF_EXTRASRCS}
+          algebra/curves/mcl_bn128/mcl_bn128_g1.cpp
+          algebra/curves/mcl_bn128/mcl_bn128_g2.cpp
+          algebra/curves/mcl_bn128/mcl_bn128_gt.cpp
+          algebra/curves/mcl_bn128/mcl_bn128_init.cpp
+          algebra/curves/mcl_bn128/mcl_bn128_pairing.cpp
+          algebra/curves/mcl_bn128/mcl_bn128_pp.cpp
+          ../depends/mcl/src/fp.cpp
+  )
+endif()
+
 add_library(
   ff
   STATIC
